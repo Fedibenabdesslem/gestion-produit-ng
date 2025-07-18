@@ -1,0 +1,25 @@
+<h2 class="title">Liste des Produits</h2>
+
+<table class="produit-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nom</th>
+      <th>Prix</th>
+      <th>Stock</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let produit of produits">
+      <td>{{ produit.id }}</td>
+      <td>{{ produit.nom }}</td>
+      <td>{{ produit.prix | currency:'EUR':'symbol' }}</td>
+      <td>{{ produit.stock }}</td>
+      <td class="actions-cell">
+        <button class="btn btn-danger" (click)="supprimerProduit(produit.id)">Supprimer</button>
+        <a class="btn btn-primary" [routerLink]="['/modifier-produit', produit.id]">Modifier</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

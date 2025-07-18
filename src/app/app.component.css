@@ -1,0 +1,77 @@
+/* Container header */
+.header-container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 0 15px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+}
+
+/* Titre principal */
+.header-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 10px;
+  user-select: none;
+}
+
+/* Navigation */
+.nav-menu {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.1rem;
+}
+
+/* Liens */
+.nav-link {
+  color: #4a90e2;
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.nav-link:hover {
+  background-color: #357abd;
+  color: white;
+}
+
+.active-link {
+  font-weight: 700;
+  background-color: #4a90e2;
+  color: white;
+  box-shadow: 0 2px 8px rgba(74, 144, 226, 0.6);
+}
+
+/* Séparateur */
+.separator {
+  color: #999;
+  user-select: none;
+  font-weight: 600;
+}
+
+/* Ligne horizontale */
+.separator-line {
+  max-width: 900px;
+  margin: 20px auto 40px auto;
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, #4a90e2, #357abd);
+  border-radius: 10px;
+}
+
+/* Responsive (petits écrans) */
+@media (max-width: 480px) {
+  .nav-menu {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .separator {
+    display: none;
+  }
+}
