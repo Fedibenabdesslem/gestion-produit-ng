@@ -14,7 +14,7 @@
     <tr *ngFor="let produit of produits">
       <td>{{ produit.id }}</td>
       <td>{{ produit.nom }}</td>
-      <td>{{ produit.prix | currency:'EUR':'symbol' }}</td>
+      <td>{{ produit.prix | currency:'TND':'symbol' }}</td>
       <td>{{ produit.stock }}</td>
       <td class="actions-cell">
         <button class="btn btn-danger" (click)="supprimerProduit(produit.id)">Supprimer</button>

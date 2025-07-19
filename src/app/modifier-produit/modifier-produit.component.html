@@ -1,19 +1,24 @@
 <div class="form-container">
-  <h2>Modifier le produit</h2>
+  <h2>Modifier le Produit</h2>
   <form (ngSubmit)="modifierProduit()">
-    <div>
-      <label>Nom :</label>
-      <input type="text" [(ngModel)]="produit.nom" name="nom" required />
+    <div class="form-group">
+      <label for="nom">Nom :</label>
+      <input type="text" id="nom" [(ngModel)]="produit.nom" name="nom" required />
     </div>
-    <div>
-      <label>Prix :</label>
-      <input type="number" [(ngModel)]="produit.prix" name="prix" required />
+
+    <div class="form-group">
+      <label for="prix">Prix :</label>
+      <input type="number" id="prix" [(ngModel)]="produit.prix" name="prix" required />
     </div>
-    <div>
-      <label>Stock :</label>
-      <input type="number" [(ngModel)]="produit.stock" name="stock" required />
+
+    <div class="form-group">
+      <label for="stock">Stock :</label>
+      <input type="number" id="stock" [(ngModel)]="produit.stock" name="stock" required />
     </div>
-    <button type="submit">Modifier</button>
-    <button type="button" (click)="annuler()">Annuler</button>
+
+    <div class="form-buttons">
+      <button type="submit" class="btn btn-primary">💾 Modifier</button>
+      <button type="button" class="btn btn-secondary" (click)="annuler()">↩️ Annuler</button>
+    </div>
   </form>
 </div>

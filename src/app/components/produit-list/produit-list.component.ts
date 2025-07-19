@@ -35,7 +35,7 @@ export class ProduitListComponent implements OnInit {
 
   modifierProduit(id: number): void {
     this.router.navigate(['/modifier-produit', id]);
-    // Logique pour la modification du produit
+   
     console.log(`Modifier le produit avec l'ID: ${id}`);
   }
 
