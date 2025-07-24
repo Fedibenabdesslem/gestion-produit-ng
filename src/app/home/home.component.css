@@ -1,0 +1,53 @@
+.home-container {
+  text-align: center;
+  padding: 40px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+header {
+  background: linear-gradient(135deg, #007bff, #00d4ff);
+  color: white;
+  padding: 60px 20px;
+  border-radius: 15px;
+}
+
+header h1 span {
+  color: #ffc107;
+}
+
+.actions {
+  margin-top: 20px;
+}
+
+.actions button {
+  margin: 10px;
+  padding: 10px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: white;
+  color: #007bff;
+  transition: 0.3s;
+}
+
+.actions button:hover {
+  background-color: #0056b3;
+  color: white;
+}
+
+.features {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.feature-card {
+  background: #f4f4f4;
+  padding: 20px;
+  width: 250px;
+  border-radius: 10px;
+  margin: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}

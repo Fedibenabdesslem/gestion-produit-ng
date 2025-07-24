@@ -29,14 +29,13 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   onRoleChange(user: User, event: Event) {
-    const selectElement = event.target as HTMLSelectElement;
-    const newRole = selectElement.value;
+  const selectElement = event.target as HTMLSelectElement;
+  const newRole = selectElement.value;
 
-    const updatedUser = { ...user, role: newRole };
-    this.userService.updateUser(updatedUser).subscribe(() => {
-      this.loadUsers();
-    });
-  }
+  this.userService.updateUserRole(user.id!, newRole).subscribe(() => {
+    this.loadUsers();
+  });
+}
 
   onDeleteUser(userId: string) {
     if (confirm('Voulez-vous vraiment supprimer cet utilisateur ?')) {

@@ -16,9 +16,17 @@ export class UserService {
   }
 
   // Mettre à jour un utilisateur (ex : changer le rôle)
-  updateUser(user: User): Observable<void> {
-    return this.http.put<void>(`${this.baseUrl}/${user.id}`, user);
-  }
+ updateUserRole(userId: string, role: string): Observable<void> {
+  return this.http.put<void>(
+    `${this.baseUrl}/${userId}/role`,
+    JSON.stringify(role),  // 💡 on stringify le string
+    {
+      headers: { 'Content-Type': 'application/json' }
+    }
+  );
+}
+
+
 
   // Supprimer un utilisateur par ID
   deleteUser(id: string): Observable<void> {

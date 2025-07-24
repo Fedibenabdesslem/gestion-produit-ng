@@ -11,7 +11,13 @@ import { FormsModule } from '@angular/forms';
   imports: [FormsModule]
 })
 export class ModifierProduitComponent implements OnInit {
-  produit: Produit = { id: 0, nom: '', prix: 0, stock: 0 };
+  produit: Produit = {
+  id: 0,
+  nom: '',
+  prix: 0,
+  stock: 0,
+  quantite: 0   
+};
   id!: number;
 
   constructor(
