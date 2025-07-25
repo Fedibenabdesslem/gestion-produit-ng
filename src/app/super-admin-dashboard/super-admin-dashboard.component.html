@@ -1,15 +1,50 @@
-<div class="super-admin-container">
-  <h1>Tableau de Bord Super Admin</h1>
-  <div class="card-container">
-    <div class="dashboard-card" (click)="navigateToUsers()">
-      <img src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png" alt="Users">
-      <h3>Gestion des Utilisateurs</h3>
-      <p>Afficher, modifier les rôles, et supprimer les comptes utilisateurs.</p>
-    </div>
-    <div class="dashboard-card" (click)="navigateToProduits()">
-      <img src="https://cdn-icons-png.flaticon.com/512/4290/4290854.png" alt="Produits">
-      <h3>Gestion des Produits</h3>
-      <p>Consulter, ajouter, modifier ou supprimer les produits disponibles.</p>
-    </div>
-  </div>
+<div class="dashboard-container">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h2>Super Admin</h2>
+    <nav>
+      <button (click)="navigateToProduits()">📦 Produits</button>
+      <button (click)="navigateToUsers()">👥 Utilisateurs</button>
+      <button (click)="navigateToAddProduct()">➕ Ajouter un Produit</button>
+      <button class="logout-btn" (click)="logout()">🚪 Déconnexion</button>
+    </nav>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <h1>Tableau de Bord</h1>
+
+    <!-- Statistiques Utilisateurs -->
+    <section class="stats-section">
+      <h3>📊 Répartition des rôles</h3>
+      <ngx-charts-pie-chart
+        [view]="[400, 400]"
+        [scheme]="colorScheme"
+        [results]="userRoleCounts"
+        [legend]="true"
+        [labels]="true"
+        [doughnut]="true"
+      >
+      </ngx-charts-pie-chart>
+    </section>
+
+    <!-- Statistiques Produits -->
+    <section class="stats-section">
+      <h3>📦 Quantité par produit</h3>
+      <ngx-charts-bar-vertical
+        [view]="[600, 400]"
+        [scheme]="colorScheme"
+        [results]="productQuantities"
+        [xAxis]="true"
+        [yAxis]="true"
+        [legend]="false"
+        [showXAxisLabel]="true"
+        [showYAxisLabel]="true"
+        [xAxisLabel]="'Produit'"
+        [yAxisLabel]="'Quantité'"
+        [animations]="true"
+      >
+      </ngx-charts-bar-vertical>
+    </section>
+  </main>
 </div>

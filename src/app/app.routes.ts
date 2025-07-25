@@ -3,10 +3,11 @@ import { ProduitListComponent } from './components/produit-list/produit-list.com
 import { AjoutProduitComponent } from './ajout-produit/ajout-produit.component';
 import { ModifierProduitComponent } from './modifier-produit/modifier-produit.component';
 import { LoginComponent } from './login/login.component';
-import { AdminDashboardComponent } from './liste-des-users/admin-dashboard.component';
+
 import { AdminGuard } from './guards/auth.guard';
 import { HomeComponent } from './home/home.component';
 import { SuperAdminDashboardComponent } from './super-admin-dashboard/super-admin-dashboard.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },

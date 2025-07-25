@@ -16,7 +16,7 @@ export class ModifierProduitComponent implements OnInit {
   nom: '',
   prix: 0,
   stock: 0,
-  quantite: 0   
+     
 };
   id!: number;
 
