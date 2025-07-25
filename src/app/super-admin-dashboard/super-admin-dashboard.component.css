@@ -1,0 +1,40 @@
+.super-admin-container {
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(to bottom right, #f5f7fa, #c3cfe2);
+  min-height: 100vh;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-top: 30px;
+}
+
+.dashboard-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  width: 300px;
+  padding: 30px 20px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.dashboard-card img {
+  width: 80px;
+  margin-bottom: 15px;
+}
+
+.dashboard-card h3 {
+  margin-bottom: 10px;
+  color: #007bff;
+}

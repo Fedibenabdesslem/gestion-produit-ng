@@ -1,11 +1,8 @@
-<div class="login-container">
-  <h2>Connexion</h2>
-  <form (ngSubmit)="onSubmit()" class="login-form">
-    <input type="email" [(ngModel)]="email" name="email" placeholder="Email" required />
-    <input type="password" [(ngModel)]="password" name="password" placeholder="Mot de passe" required />
-    <button type="submit">Se connecter</button>
-  </form>
-  <div *ngIf="errorMessage" class="error-message">
-    {{ errorMessage }}
-  </div>
-</div>
+<form (ngSubmit)="onSubmit()" class="login-form">
+  <input type="email" [(ngModel)]="email" name="email" placeholder="Email" required />
+  <input type="password" [(ngModel)]="password" name="password" placeholder="Mot de passe" required />
+  <button type="submit">Se connecter</button>
+</form>
+
+<div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+<div *ngIf="waitingApprovalMessage" class="info-message">{{ waitingApprovalMessage }}</div>
