@@ -1,34 +1,34 @@
-<div class="dashboard-container">
-  <h2>Gestion des utilisateurs</h2>
+<div class="user-dashboard">
+  <h2 class="dashboard-title">👥 Gestion des utilisateurs</h2>
 
-  <div *ngIf="error" class="error-message">{{ error }}</div>
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
 
-  <table class="user-table">
-    <thead>
-      <tr>
-        <th>Email</th>
-        <th>Rôle</th>
-        <th>Créé le</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of users">
-        <td>{{ user.email }}</td>
-        <td>
-          <select [value]="user.role" (change)="onRoleChange(user, $event)">
+  <div class="user-grid">
+    <div class="user-card" *ngFor="let user of users">
+      <div class="user-card-header">
+        <div class="user-avatar">
+          <span>{{ user.email.charAt(0).toUpperCase() }}</span>
+        </div>
+        <div class="user-email">{{ user.email }}</div>
+      </div>
+
+      <div class="user-meta">
+        <p><strong>Créé le :</strong> {{ user.createdAt | date: 'short' }}</p>
+        <div class="role-select">
+          <label for="roleSelect-{{user.id}}">Rôle</label>
+          <select id="roleSelect-{{user.id}}" [value]="user.role" (change)="onRoleChange(user, $event)">
             <option value="admin">Admin</option>
             <option value="user">User</option>
             <option value="default">Default</option>
           </select>
-        </td>
-        <td>{{ user.createdAt | date: 'short' }}</td>
-        <td>
-          <button (click)="onDeleteUser(user.id)" class="delete-button">
-            Supprimer
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <button (click)="onDeleteUser(user.id)" class="delete-btn">🗑 Supprimer</button>
+      </div>
+    </div>
+  </div>
 </div>

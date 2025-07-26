@@ -1,53 +1,69 @@
+/* PAGE ENTIÈRE AVEC IMAGE DE FOND */
 .home-container {
-  text-align: center;
-  padding: 40px;
-  font-family: 'Segoe UI', sans-serif;
-}
-
-header {
-  background: linear-gradient(135deg, #007bff, #00d4ff);
-  color: white;
+  min-height: 100vh;
+  width: 100%;
+  background-image: url('/images/img4.jpg'); 
+  background-size: cover;           /* couvre toute la zone */
+  background-position: center;      /* centre l'image */
+  background-repeat: no-repeat;     /* pas de répétition */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 60px 20px;
-  border-radius: 15px;
+  box-sizing: border-box;
+  color: white;
+  text-align: center;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
 
-header h1 span {
-  color: #ffc107;
+/* TITRE ET DESCRIPTION */
+header h1 {
+  font-size: 48px;
+  margin-bottom: 10px;
 }
 
-.actions {
-  margin-top: 20px;
+header span {
+  color: #ffd700;
 }
 
+header p {
+  font-size: 20px;
+  margin-bottom: 40px;
+}
+
+/* BOUTONS */
 .actions button {
   margin: 10px;
-  padding: 10px 25px;
+  padding: 14px 28px;
   font-size: 16px;
   border: none;
   border-radius: 8px;
+  background-color: #007bff;
+  color: white;
   cursor: pointer;
-  background-color: white;
-  color: #007bff;
-  transition: 0.3s;
+  transition: background 0.3s ease;
 }
 
 .actions button:hover {
   background-color: #0056b3;
-  color: white;
 }
 
+/* FONCTIONNALITÉS */
 .features {
   display: flex;
-  justify-content: space-around;
-  margin-top: 40px;
   flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 40px;
 }
 
 .feature-card {
-  background: #f4f4f4;
-  padding: 20px;
-  width: 250px;
-  border-radius: 10px;
-  margin: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  background-color: rgba(0, 0, 0, 0.6); /* fond transparent pour contraste */
+  border-radius: 12px;
+  padding: 25px;
+  width: 280px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
 }
+
+
