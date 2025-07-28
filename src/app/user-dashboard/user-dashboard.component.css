@@ -1,0 +1,103 @@
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  background-color: #f5f7fa;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  min-height: 100vh;
+  background-color: #e3f2fd;
+  padding: 20px;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.sidebar h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #0d47a1;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.sidebar button {
+  width: 100%;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #0d47a1;
+  text-align: left;
+  font-size: 15px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.sidebar button:hover {
+  background-color: #cce4f7;
+}
+
+.logout-btn {
+  margin-top: auto;
+  background-color: #ef5350;
+  color: white;
+}
+
+.logout-btn:hover {
+  background-color: #c62828;
+}
+
+/* Main content */
+.main-content {
+  flex: 1;
+  margin-left: 240px;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+
+.stats-section {
+  background: white;
+  padding: 20px;
+  margin-bottom: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.08);
+}
+
+
+.main-content h1 {
+  margin-bottom: 20px;
+  color: #0d47a1;
+}
+
+
+.main-content {
+  flex: 1;
+  margin-left: 240px;
+  padding: 30px;
+  overflow-y: auto;
+  display: grid;
+  place-items: center; /* Centre à la fois horizontalement et verticalement */
+}
+
+.stats-section {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.08);
+  width: clamp(300px, 80%, 800px); /* Responsive entre 300px et 800px */
+}

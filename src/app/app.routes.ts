@@ -8,6 +8,7 @@ import { AdminGuard } from './guards/auth.guard';
 import { HomeComponent } from './home/home.component';
 import { SuperAdminDashboardComponent } from './super-admin-dashboard/super-admin-dashboard.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,6 +19,7 @@ export const routes: Routes = [
   {path:'liste des utilisateurs',component:AdminDashboardComponent},
   { path: 'liste des utilisateurs', component: AdminDashboardComponent, canActivate: [AdminGuard] },
   { path: 'super-admin', component: SuperAdminDashboardComponent, canActivate: [AdminGuard] },
+  {path : 'user-dashboard', component: UserDashboardComponent},
 
    { path: '**', redirectTo: '' }
   

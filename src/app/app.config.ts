@@ -9,6 +9,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
+    
     // On active le HttpClient avec les intercepteurs injectés via DI
     provideHttpClient(withInterceptorsFromDi()),
     // On déclare l'intercepteur dans l'injecteur Angular

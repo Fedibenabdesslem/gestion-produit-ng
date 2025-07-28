@@ -32,7 +32,7 @@ export class LoginComponent {
         if (role === 'admin') {
           this.router.navigate(['/super-admin']);
         } else if (role === 'user') {
-          this.router.navigate(['/produits']);
+          this.router.navigate(['/user-dashboard']);
         } else if (role === 'default') {
           this.waitingApprovalMessage = "✅ Votre compte est en attente d'approbation par l'administrateur.";
         } else {
