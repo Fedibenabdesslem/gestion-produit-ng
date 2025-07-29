@@ -8,11 +8,11 @@
 /* Sidebar */
 .sidebar {
   width: 220px;
-  min-height: 100vh;
+  
   background-color: #e3f2fd;
   padding: 20px;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
-  position: fixed;
+  
   top: 0;
   left: 0;
   display: flex;
@@ -76,6 +76,7 @@
   margin-bottom: 30px;
   border-radius: 12px;
   box-shadow: 0 0 12px rgba(0,0,0,0.08);
+  
 }
 
 
@@ -100,4 +101,5 @@
   border-radius: 12px;
   box-shadow: 0 0 12px rgba(0,0,0,0.08);
   width: clamp(300px, 80%, 800px); /* Responsive entre 300px et 800px */
+  
 }
