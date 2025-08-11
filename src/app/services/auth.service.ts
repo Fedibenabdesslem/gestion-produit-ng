@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
 import { tap } from 'rxjs/operators';
 import { LoginRequest } from '../models/login-request';
 
@@ -10,6 +9,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
+  
   login(credentials: LoginRequest) {
     return this.http.post<{ token: string }>(`${this.baseUrl}/signin`, credentials).pipe(
       tap((res) => {
@@ -18,10 +18,17 @@ export class AuthService {
     );
   }
 
+ 
+  register(data: { username: string; email: string; password: string }) {
+    return this.http.post(`${this.baseUrl}/signup`, data);
+  }
+
+  
   logout() {
     localStorage.removeItem('token');
   }
 
+  
   getToken() {
     return localStorage.getItem('token');
   }

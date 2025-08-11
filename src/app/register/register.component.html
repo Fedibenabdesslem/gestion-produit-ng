@@ -1,0 +1,84 @@
+<div class="register-container">
+  <h2>Créer un compte</h2>
+
+  <form #registerForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
+
+    <!-- Username -->
+    <label for="username">Nom d’utilisateur</label>
+    <input
+      id="username"
+      type="text"
+      [(ngModel)]="username"
+      name="username"
+      required
+      minlength="3"
+      #usernameField="ngModel"
+      autocomplete="username"
+    />
+    <div class="error" *ngIf="usernameField.invalid && usernameField.touched">
+      <small *ngIf="usernameField.errors?.['required']">Le nom d’utilisateur est obligatoire.</small>
+      <small *ngIf="usernameField.errors?.['minlength']">Minimum 3 caractères.</small>
+    </div>
+
+    <!-- Email -->
+    <label for="email">Email</label>
+    <input
+      id="email"
+      type="email"
+      [(ngModel)]="email"
+      name="email"
+      required
+      email
+      #emailField="ngModel"
+      autocomplete="email"
+    />
+    <div class="error" *ngIf="emailField.invalid && emailField.touched">
+      <small *ngIf="emailField.errors?.['required']">L’email est obligatoire.</small>
+      <small *ngIf="emailField.errors?.['email']">Format d’email invalide.</small>
+    </div>
+
+    <!-- Password -->
+    <label for="password">Mot de passe</label>
+    <input
+      id="password"
+      type="password"
+      [(ngModel)]="password"
+      name="password"
+      required
+      minlength="6"
+      #passwordField="ngModel"
+      autocomplete="new-password"
+    />
+    <div class="error" *ngIf="passwordField.invalid && passwordField.touched">
+      <small *ngIf="passwordField.errors?.['required']">Le mot de passe est obligatoire.</small>
+      <small *ngIf="passwordField.errors?.['minlength']">Minimum 6 caractères.</small>
+    </div>
+
+    <!-- Confirm Password -->
+    <label for="confirmPassword">Confirmer le mot de passe</label>
+    <input
+      id="confirmPassword"
+      type="password"
+      [(ngModel)]="confirmPassword"
+      name="confirmPassword"
+      required
+      #confirmPasswordField="ngModel"
+      autocomplete="new-password"
+    />
+    <div class="error" *ngIf="confirmPasswordField.invalid && confirmPasswordField.touched">
+      <small *ngIf="confirmPasswordField.errors?.['required']">La confirmation est obligatoire.</small>
+    </div>
+
+    <div class="error" *ngIf="password && confirmPassword && password !== confirmPassword && confirmPasswordField.touched">
+      <small>Les mots de passe ne correspondent pas.</small>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" [disabled]="registerForm.invalid || password !== confirmPassword">S'inscrire</button>
+  </form>
+
+  <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+  <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+  <p>Déjà un compte ? <a routerLink="/login">Se connecter</a></p>
+</div>

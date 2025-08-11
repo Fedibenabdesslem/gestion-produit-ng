@@ -11,12 +11,12 @@
   gap: 15px;
   
 }
-
 .logo {
-  height: 80px;
-  width: 90px;
+  height: 100px;
+  width: 200px;
   object-fit: contain;
 }
+
 
 .header-title {
   font-size: 24px;

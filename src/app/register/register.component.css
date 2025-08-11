@@ -1,0 +1,109 @@
+/* Conteneur général avec image de fond */
+.register-container {
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 30px 40px;
+  background-color: rgba(255, 255, 255, 0.9); /* fond blanc transparent pour lisibilité */
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Image de fond sur tout le body */
+body {
+  background-image: url('/images/img2.jpg'); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Titres */
+.register-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+/* Labels */
+.register-container label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #555;
+}
+
+/* Inputs */
+.register-container input[type="text"],
+.register-container input[type="email"],
+.register-container input[type="password"] {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 15px;
+  border: 1.8px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+/* Focus sur input */
+.register-container input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Bouton */
+.register-container button {
+  width: 100%;
+  padding: 12px 0;
+  background-color: #007bff;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.register-container button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+.register-container button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+/* Messages d'erreur et de succès */
+.error small,
+.error {
+  color: #d9534f;
+  font-size: 0.875rem;
+  margin-top: -12px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.success {
+  color: #28a745;
+  text-align: center;
+  margin-top: 12px;
+  font-weight: 600;
+}
+
+/* Lien connexion */
+.register-container p a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.register-container p a:hover {
+  text-decoration: underline;
+}
