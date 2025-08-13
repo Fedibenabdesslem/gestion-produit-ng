@@ -1,25 +1,9 @@
-<h2 class="title">Liste des Produits</h2>
-
-<table class="produit-table">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Nom</th>
-      <th>Prix</th>
-      <th>Stock</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let produit of produits">
-      <td>{{ produit.id }}</td>
-      <td>{{ produit.nom }}</td>
-      <td>{{ produit.prix | currency:'TND':'symbol' }}</td>
-      <td>{{ produit.stock }}</td>
-      <td class="actions-cell">
-        <button class="btn btn-danger" (click)="supprimerProduit(produit.id)">Supprimer</button>
-        <a class="btn btn-primary" [routerLink]="['/modifier-produit', produit.id]">Modifier</a>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="produit-card" *ngFor="let produit of produits">
+  <img [src]="'https://localhost:7241' + produit.imageUrl" alt="{{produit.nom}}" />
+  <h3>{{ produit.nom }}</h3>
+  <p>{{ produit.description }}</p>
+  <p>Prix : {{ produit.prix }} DT</p>
+  <p>Stock : {{ produit.stock }}</p>
+  <button (click)="modifierProduit(produit.id)">Modifier</button>
+  <button (click)="supprimerProduit(produit.id)">Supprimer</button>
+</div>

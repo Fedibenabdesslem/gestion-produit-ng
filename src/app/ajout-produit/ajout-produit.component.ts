@@ -17,19 +17,28 @@ export class AjoutProduitComponent {
     id: 0,
     nom: '',
     prix: 0,
-    stock: 0
+    stock: 0,
+    description: '',
+    imageUrl: '' // peut rester vide, c'est géré côté serveur
   };
+  
+  imageFile?: File;
 
   constructor(
     private produitService: ProduitService,
-    private router: Router  // Injection du Router pour la navigation
+    private router: Router
   ) {}
 
+  onFileSelected(event: any) {
+    if (event.target.files.length > 0) {
+      this.imageFile = event.target.files[0];
+    }
+  }
+
   ajouterProduit(): void {
-    this.produitService.ajouterProduit(this.produit).subscribe({
+    this.produitService.ajouterProduit(this.produit, this.imageFile).subscribe({
       next: () => {
         alert('Produit ajouté avec succès !');
-        // Rediriger vers la liste des produits après ajout
         this.router.navigate(['/produits']);
       },
       error: (err) => {
@@ -38,8 +47,10 @@ export class AjoutProduitComponent {
       }
     });
   }
-  redirectToList(): void {
-  this.router.navigate(['/produits']);
-}
 
+
+
+  redirectToList(): void {
+    this.router.navigate(['/produits']);
+  }
 }

@@ -19,12 +19,37 @@ export class ProduitService {
     return this.http.get<Produit>(`${this.apiUrl}/${id}`);
   }
 
-  ajouterProduit(produit: Produit): Observable<Produit> {
-    return this.http.post<Produit>(this.apiUrl, produit);
-  }
+  ajouterProduit(produit: Produit, imageFile?: File): Observable<Produit> {
+    const formData = new FormData();
+    formData.append('nom', produit.nom);
+    formData.append('prix', produit.prix.toString());
+    formData.append('stock', produit.stock.toString());
+    formData.append('description', produit.description || '');
+    
+    if (imageFile) {
+      formData.append('imageFile', imageFile, imageFile.name);
+    }
 
-  modifierProduit(id: number, produit: Produit): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/${id}`, produit);
+    return this.http.post<Produit>(this.apiUrl, formData);
+  }
+   
+
+  modifierProduitFormData(id: number, formData: FormData): Observable<void> {
+  return this.http.put<void>(`${this.apiUrl}/${id}`, formData);
+}
+
+  modifierProduit(id: number, produit: Produit, imageFile?: File): Observable<void> {
+    const formData = new FormData();
+    formData.append('nom', produit.nom);
+    formData.append('prix', produit.prix.toString());
+    formData.append('stock', produit.stock.toString());
+    formData.append('description', produit.description || '');
+    
+    if (imageFile) {
+      formData.append('imageFile', imageFile, imageFile.name);
+    }
+
+    return this.http.put<void>(`${this.apiUrl}/${id}`, formData);
   }
 
   supprimerProduit(id: number): Observable<void> {

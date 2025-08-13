@@ -5,15 +5,27 @@
       <label>Nom :</label>
       <input type="text" [(ngModel)]="produit.nom" name="nom" required />
     </div>
+
     <div>
       <label>Prix :</label>
       <input type="number" [(ngModel)]="produit.prix" name="prix" required />
     </div>
+
     <div>
       <label>Stock :</label>
       <input type="number" [(ngModel)]="produit.stock" name="stock" required />
     </div>
-    <button type="submit">Ajouter</button>
-   
+
+    <div>
+      <label>Description :</label>
+      <textarea [(ngModel)]="produit.description" name="description"></textarea>
+    </div>
+
+    <div>
+      <label>Image :</label>
+      <input type="file" (change)="onFileSelected($event)" />
+    </div>
+
+    <button type="submit">Ajouter Produit</button>
   </form>
 </div>
