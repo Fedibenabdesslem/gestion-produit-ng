@@ -1,81 +1,136 @@
 .produits-container {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
+  padding: 20px;
 }
-
-.card {
-  width: 250px;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  background: #fff;
-}
-
-.card img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-}
-
-.card-content {
-  padding: 15px;
-}
-
-.prix {
-  font-weight: bold;
-  color: #28a745;
-}
-
-button {
-  margin-right: 5px;
-  border: none;
-  padding: 8px 12px;
-  cursor: pointer;
-}
-
-.delete {
-  background-color: #dc3545;
-  color: white;
-}
-
 
 .produit-card {
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 15px;
-  margin: 10px;
-  width: 250px; /* largeur fixe */
-  display: inline-block; /* pour les aligner en ligne */
-  vertical-align: top;
-  text-align: center;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.produit-card img {
-  width: 100%;   /* adapte l'image à la largeur de la carte */
-  height: 200px; /* hauteur fixe */
-  object-fit: cover; /* recadre l'image sans déformation */
-  border-radius: 8px;
-  margin-bottom: 10px;
+.produit-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
-.produit-card h3 {
-  margin: 5px 0;
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  background-color: transparent; /* Pour PNG transparent */
 }
 
-.produit-card p {
-  margin: 3px 0;
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
 }
 
-.produit-card button {
-  margin: 5px;
-  padding: 5px 10px;
+.produit-card:hover .image-container img {
+  transform: scale(1.05);
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.image-container:hover .overlay {
+  opacity: 1;
+}
+
+.overlay .btn {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  border-radius: 6px;
+}
+
+.produit-info {
+  padding: 10px 12px;
+}
+
+.produit-info h3 {
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.produit-info .description {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 6px;
+  min-height: 38px;
+}
+
+.produit-info .prix {
+  font-weight: bold;
+  color: #2c7a7b;
+  margin-bottom: 4px;
+}
+
+.produit-info .stock {
+  font-size: 0.85rem;
+  color: #444;
+}
+
+/* Boutons */
+.btn.modifier {
+  background-color: #3182ce;
+  color: #fff;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
 }
 
-.produit-card button:hover {
-  background-color: #ddd;
+.btn.modifier:hover {
+  background-color: #2563eb;
+}
+
+.btn.supprimer {
+  background-color: #e53e3e;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.btn.supprimer:hover {
+  background-color: #c53030;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .produits-container {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+  }
+  .image-container {
+    height: 140px;
+  }
+}
+
+@media (max-width: 480px) {
+  .produits-container {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 12px;
+  }
+  .image-container {
+    height: 120px;
+  }
 }

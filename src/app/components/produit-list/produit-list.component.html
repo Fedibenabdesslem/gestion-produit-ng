@@ -1,9 +1,17 @@
-<div class="produit-card" *ngFor="let produit of produits">
-  <img [src]="'https://localhost:7241' + produit.imageUrl" alt="{{produit.nom}}" />
-  <h3>{{ produit.nom }}</h3>
-  <p>{{ produit.description }}</p>
-  <p>Prix : {{ produit.prix }} DT</p>
-  <p>Stock : {{ produit.stock }}</p>
-  <button (click)="modifierProduit(produit.id)">Modifier</button>
-  <button (click)="supprimerProduit(produit.id)">Supprimer</button>
+<div class="produits-container">
+  <div class="produit-card" *ngFor="let produit of produits">
+    <div class="image-container">
+      <img [src]="'https://localhost:7241' + produit.imageUrl" alt="{{ produit.nom }}" />
+      <div class="overlay">
+        <button (click)="modifierProduit(produit.id)" class="btn modifier">Modifier</button>
+        <button (click)="supprimerProduit(produit.id)" class="btn supprimer">Supprimer</button>
+      </div>
+    </div>
+    <div class="produit-info">
+      <h3>{{ produit.nom }}</h3>
+      <p class="description">{{ produit.description }}</p>
+      <p class="prix">Prix : <span>{{ produit.prix }} DT</span></p>
+      <p class="stock">Stock : <span>{{ produit.stock }}</span></p>
+    </div>
+  </div>
 </div>

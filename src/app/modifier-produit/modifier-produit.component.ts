@@ -46,27 +46,32 @@ export class ModifierProduitComponent implements OnInit {
   }
 
   modifierProduit(): void {
-    const formData = new FormData();
-    formData.append('id', this.produit.id.toString());
-    formData.append('nom', this.produit.nom);
-    formData.append('prix', this.produit.prix.toString());
-    formData.append('stock', this.produit.stock.toString());
-    formData.append('description', this.produit.description);
-    if (this.selectedFile) {
-      formData.append('file', this.selectedFile);
-    }
+  const formData = new FormData();
+  formData.append('id', this.produit.id.toString());
+  formData.append('nom', this.produit.nom);
+  formData.append('prix', this.produit.prix.toString());
+  formData.append('stock', this.produit.stock.toString());
+  formData.append('description', this.produit.description);
 
-    this.produitService.modifierProduitFormData(this.id, formData).subscribe({
-      next: () => {
-        alert('Produit modifié avec succès !');
-        this.router.navigate(['/produits']);
-      },
-      error: (err) => {
-        console.error('Erreur lors de la modification', err);
-        alert('Échec de la modification du produit.');
-      }
-    });
+  if (this.selectedFile) {
+    formData.append('file', this.selectedFile);
+  } else {
+    
+    formData.append('imageUrl', this.produit.imageUrl ?? '');
   }
+
+  this.produitService.modifierProduitFormData(this.id, formData).subscribe({
+    next: () => {
+      alert('Produit modifié avec succès !');
+      this.router.navigate(['/produits']);
+    },
+    error: (err) => {
+      console.error('Erreur lors de la modification', err);
+      alert('Échec de la modification du produit.');
+    }
+  });
+}
+
 
   annuler(): void {
     this.router.navigate(['/produits']);
