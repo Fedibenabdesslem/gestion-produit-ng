@@ -1,46 +1,45 @@
 <div class="dashboard-container">
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <h2>👤 Espace Utilisateur</h2>
-    <nav>
-      <button (click)="navigateToProduits()">📦 Produits</button>
-      <button (click)="navigateToAddProduct()">➕ Ajouter un Produit</button>
-      
-      <button class="logout-btn" (click)="logout()">🚪 Déconnexion</button>
-    </nav>
-  </aside>
 
-  <!-- Contenu principal -->
-  <main class="main-content">
-    <h1>Bienvenue sur votre tableau de bord</h1>
+  <h2 class="section-title">🛍️ Vitrine des produits</h2>
 
-    <!-- Statistiques produits -->
-    <section class="stats-section">
-      <h3>📊 Quantité par produit</h3>
-      <ngx-charts-bar-vertical
-        [view]="[700, 400]"
-        [scheme]="colorScheme"
-        [results]="productQuantities"
-        [xAxis]="true"
-        [yAxis]="true"
-        [showXAxisLabel]="true"
-        [showYAxisLabel]="true"
-        [xAxisLabel]="'Produit'"
-        [yAxisLabel]="'Quantité'"
-        [animations]="true">
-      </ngx-charts-bar-vertical>
-    </section>
+  <div *ngIf="message" class="alert">{{ message }}</div>
 
-    <section class="stats-section">
-      <h3>💰 Valeur totale par produit</h3>
-      <ngx-charts-pie-chart
-        [view]="[500, 500]"
-        [scheme]="colorScheme"
-        [results]="productValues"
-        [legend]="true"
-        [labels]="true"
-        [doughnut]="true">
-      </ngx-charts-pie-chart>
-    </section>
-  </main>
+  <div class="produits-grid">
+    <div *ngFor="let produit of produits" class="produit-card">
+      <div class="image-container">
+        <img [src]="'https://localhost:7241' + produit.imageUrl" alt="{{ produit.nom }}" />
+        <span *ngIf="produit.stock <= 5" class="badge stock-badge">Stock faible</span>
+        <span class="badge new-badge">Nouveau</span>
+      </div>
+      <div class="produit-info">
+        <h3>{{ produit.nom }}</h3>
+        <p class="description">{{ produit.description }}</p>
+        <p class="prix-stock"><strong>Prix :</strong> {{ produit.prix }} DT</p>
+        <p class="prix-stock"><strong>Stock :</strong> {{ produit.stock }}</p>
+        <button (click)="ajouterAuPanier(produit.id)">🛒 Ajouter</button>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section-title">🛒 Mon Panier</h2>
+
+  <div class="panier-container" *ngFor="let item of panierItems">
+    <ng-container *ngIf="item.produit">
+      <img [src]="'https://localhost:7241' + item.produit.imageUrl" alt="{{ item.produit.nom }}" />
+      <div class="panier-info">
+        <h3>{{ item.produit.nom }}</h3>
+        <p>Prix : {{ item.produit.prix }} DT</p>
+        <p>Quantité : {{ item.quantite }}</p>
+        <button (click)="retirerDuPanier(item.id)">❌ Retirer</button>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="panier-total" *ngIf="panierItems.length">
+    <p><strong>Total :</strong> {{ getTotal() }} DT</p>
+    <button (click)="viderPanier()">Vider le panier</button>
+  </div>
+
+  <button class="logout-btn" (click)="logout()">Déconnexion</button>
+
 </div>

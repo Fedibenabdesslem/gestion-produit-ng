@@ -1,71 +1,88 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
-import { ProduitService } from '../services/produit.service';
 import { Produit } from '../models/produit';
-import { NgxChartsModule, Color } from '@swimlane/ngx-charts';
+import { PanierItem } from '../models/panier-item.model';
+import { ProduitService } from '../services/produit.service';
+import { PanierService } from '../services/panier.service';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-user-dashboard',
   templateUrl: './user-dashboard.component.html',
   styleUrls: ['./user-dashboard.component.css'],
-  standalone: true,
-  imports: [CommonModule, RouterModule, NgxChartsModule]
+  imports: [CommonModule],
 })
 export class UserDashboardComponent implements OnInit {
   produits: Produit[] = [];
-  productQuantities: any[] = [];
-  productValues: any[] = [];
-
-  colorScheme: string | Color = 'vivid';
+  produitsFiltres: Produit[] = [];
+  panierItems: PanierItem[] = [];
+  message: string = '';
+  showNotification: boolean = false;
 
   constructor(
     private produitService: ProduitService,
-    private router: Router,
-    private authService: AuthService
+    private panierService: PanierService,
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.loadProductStats();
+    this.chargerProduits();
+    this.chargerPanier();
   }
 
-  // 🔄 Récupération et transformation des données
-  loadProductStats(): void {
+  chargerProduits(): void {
     this.produitService.getAllProduits().subscribe({
-      next: (produits) => {
-        this.produits = produits;
-
-        // Quantité par produit
-        this.productQuantities = produits.map(p => ({
-          name: p.nom,
-          value: p.stock // ou p.quantite selon votre backend
-        }));
-
-        // Valeur totale par produit (prix * stock)
-        this.productValues = produits.map(p => ({
-          name: p.nom,
-          value: p.stock * p.prix
-        }));
+      next: data => {
+        this.produits = data;
+        this.produitsFiltres = [...this.produits]; // Initialiser le filtre
       },
-      error: (err) => {
-        console.error('Erreur de chargement des produits', err);
-      }
+      error: err => console.error(err)
     });
   }
 
-  // 🔁 Navigation vers la liste des produits
-  navigateToProduits(): void {
-    this.router.navigate(['/produits']);
+  chargerPanier(): void {
+    this.panierService.getPanier().subscribe({
+      next: data => this.panierItems = data,
+      error: err => console.error(err)
+    });
   }
-  
 
-  navigateToAddProduct() {
-    this.router.navigate(['/ajouter-produit']);
+  ajouterAuPanier(produitId: number): void {
+    this.panierService.ajouterAuPanier(produitId).subscribe({
+      next: item => {
+        this.showNotification = true;
+        this.chargerPanier();
+        setTimeout(() => this.showNotification = false, 2000);
+      },
+      error: err => console.error('Erreur ajout panier', err)
+    });
   }
-    // 🔒 Déconnexion
+
+  retirerDuPanier(panierItemId: number): void {
+    this.panierService.retirerDuPanier(panierItemId).subscribe({
+      next: () => this.chargerPanier(),
+      error: err => console.error('Erreur retrait panier', err)
+    });
+  }
+
+  viderPanier(): void {
+    this.panierService.viderPanier().subscribe({
+      next: () => this.chargerPanier(),
+      error: err => console.error(err)
+    });
+  }
+
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
+
+  getTotal(): number {
+    return this.panierItems.reduce((total, item) => total + (item.produit.prix * item.quantite), 0);
+  }
+
+
+
 }

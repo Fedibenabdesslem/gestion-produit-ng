@@ -5,4 +5,5 @@ export interface Produit {
   prix: number;
   stock: number;
   imageUrl?: string; 
+  nouveau?: boolean;
 }
