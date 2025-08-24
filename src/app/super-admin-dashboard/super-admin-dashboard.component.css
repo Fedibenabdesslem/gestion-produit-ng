@@ -92,3 +92,50 @@
   font-size: 20px;
   color: #1a237e;
 }
+
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.table th, .table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.table th {
+  background-color: #f8f9fa;
+}
+
+button {
+  margin: 0 5px;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.cancel-btn {
+  background-color: #ff4444;
+  color: white;
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.9em;
+  font-weight: bold;
+  color: white;
+}
+
+.status-badge.pending { background-color: #ffbb33; }
+.status-badge.processing { background-color: #007bff; }
+.status-badge.delivered { background-color: #00c851; }
+.status-badge.cancelled { background-color: #ff4444; }

@@ -5,8 +5,9 @@ import { UserService } from '../services/user.service';
 import { ProduitService } from '../services/produit.service';
 import { User } from '../models/user';
 import { Produit } from '../models/produit';
-import { NgxChartsModule, Color } from '@swimlane/ngx-charts';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { AuthService } from '../services/auth.service';
+import { CommandeService, Commande } from '../services/commande.service';
 
 @Component({
   selector: 'app-super-admin-dashboard',
@@ -18,6 +19,8 @@ import { AuthService } from '../services/auth.service';
 export class SuperAdminDashboardComponent implements OnInit {
   users: User[] = [];
   produits: Produit[] = [];
+  commandes: Commande[] = [];   // ✅ Ajout pour commandes
+
   userRoleCounts: { name: string; value: number }[] = [];
   productQuantities: { name: string; value: number }[] = [];
 
@@ -28,6 +31,7 @@ export class SuperAdminDashboardComponent implements OnInit {
   constructor(
     private userService: UserService,
     private produitService: ProduitService,
+    private commandeService: CommandeService, // ✅ Injection
     private router: Router,
     private authService: AuthService
   ) {}
@@ -35,20 +39,13 @@ export class SuperAdminDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.loadUserStats();
     this.loadProductStats();
+    this.loadCommandes(); // ✅ Charger les commandes
   }
 
   // 🔁 Redirections
-  navigateToUsers() {
-    this.router.navigate(['/liste des utilisateurs']);
-  }
-
-  navigateToProduits() {
-    this.router.navigate(['/produits']);
-  }
-
-  navigateToAddProduct() {
-    this.router.navigate(['/ajouter-produit']);
-  }
+  navigateToUsers() { this.router.navigate(['/liste des utilisateurs']); }
+  navigateToProduits() { this.router.navigate(['/produits']); }
+  navigateToAddProduct() { this.router.navigate(['/ajouter-produit']); }
 
   logout() {
     this.authService.logout();
@@ -70,9 +67,7 @@ export class SuperAdminDashboardComponent implements OnInit {
           value: grouped[role]
         }));
       },
-      error: (err) => {
-        console.error('Erreur lors du chargement des utilisateurs', err);
-      }
+      error: (err) => console.error('Erreur lors du chargement des utilisateurs', err)
     });
   }
 
@@ -86,9 +81,29 @@ export class SuperAdminDashboardComponent implements OnInit {
           value: p.stock ?? 0
         }));
       },
-      error: (err) => {
-        console.error('Erreur lors du chargement des produits', err);
-      }
+      error: (err) => console.error('Erreur lors du chargement des produits', err)
+    });
+  }
+
+  // 📑 Gestion des commandes
+  private loadCommandes(): void {
+    this.commandeService.getAllCommandes().subscribe({
+      next: (cmds) => this.commandes = cmds,
+      error: (err) => console.error('Erreur lors du chargement des commandes', err)
+    });
+  }
+
+  changerStatut(id: number, statut: string) {
+    this.commandeService.changerStatut(id, statut).subscribe(() => {
+      const cmd = this.commandes.find(c => c.id === id);
+      if (cmd) cmd.statut = statut;
+    });
+  }
+
+  annulerCommande(id: number) {
+    this.commandeService.annuler(id).subscribe(() => {
+      const cmd = this.commandes.find(c => c.id === id);
+      if (cmd) cmd.statut = "Annulée";
     });
   }
 }

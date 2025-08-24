@@ -1,45 +1,51 @@
-/* --- Dashboard Container --- */
+/* ---------------- Container général ---------------- */
 .dashboard-container {
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  max-width: 1400px;
-  margin: auto;
-  background: #f8f9fa;
+  color: #333;
 }
 
-/* --- Section Titles --- */
+/* ---------------- Titres ---------------- */
 .section-title {
-  font-size: 2rem;
-  margin-bottom: 25px;
-  color: #343a40;
-  border-bottom: 3px solid #007bff;
-  display: inline-block;
-  padding-bottom: 6px;
-  position: relative;
+  font-size: 1.8rem;
+  margin: 30px 0 15px 0;
+  color: #444;
+  border-bottom: 2px solid #43a047;
+  padding-bottom: 5px;
 }
 
-/* --- Produits Grid --- */
+/* ---------------- Alert ---------------- */
+.alert {
+  background-color: #fffae6;
+  border-left: 5px solid #ffb74d;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+/* ---------------- Grille produits ---------------- */
 .produits-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-  gap: 25px;
-  margin-bottom: 50px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
 }
 
-/* --- Carte Produit avec Overlay --- */
 .produit-card {
-  border-radius: 18px;
-  overflow: hidden;
   background: #fff;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-  position: relative;
-  cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.4s;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .produit-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 18px 30px rgba(0,0,0,0.15);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 22px rgba(0,0,0,0.15);
 }
 
 .image-container {
@@ -53,215 +59,200 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.produit-card:hover img {
-  transform: scale(1.1);
-}
-
-/* --- Overlay Info --- */
-.produit-info {
-  padding: 15px;
-  text-align: center;
-  position: relative;
-  z-index: 2;
   transition: transform 0.3s;
 }
 
-.produit-card:hover .produit-info {
-  transform: translateY(-10px);
+.image-container:hover img {
+  transform: scale(1.05);
 }
 
-.produit-info h3 {
-  font-size: 1.25rem;
-  margin: 8px 0;
-  color: #007bff;
-  transition: color 0.3s;
-}
-
-.produit-info .description {
-  font-size: 0.9rem;
-  color: #555;
-  height: 40px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin-bottom: 8px;
-}
-
-.produit-info .prix-stock {
-  font-weight: 500;
-  margin: 4px 0;
-}
-
-.produit-info button {
-  margin-top: 10px;
-  padding: 10px 20px;
-  border: none;
-  background: linear-gradient(135deg, #007bff, #0069d9);
-  color: white;
-  cursor: pointer;
-  border-radius: 12px;
-  font-weight: 600;
-  transition: all 0.4s;
-}
-
-.produit-info button:hover {
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 8px 20px rgba(0,123,255,0.3);
-}
-
-/* --- Badges Animés --- */
+/* ---------------- Badges ---------------- */
 .badge {
   position: absolute;
   top: 10px;
-  padding: 5px 12px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  border-radius: 8px;
-  color: #fff;
-  animation: pulse 2s infinite;
-}
-
-.stock-badge {
-  background-color: #dc3545;
   left: 10px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: bold;
 }
 
-.new-badge {
-  background-color: #28a745;
-  right: 10px;
-}
+.stock-badge { background-color: #e53935; }
+.new-badge { background-color: #43a047; left: auto; right: 10px; }
 
-@keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.08); opacity: 0.85; }
-}
-
-/* --- Panier --- */
-.panier-container {
+/* ---------------- Infos produit ---------------- */
+.produit-info {
+  padding: 15px;
+  flex: 1;
   display: flex;
+  flex-direction: column;
+}
+
+.produit-info h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.1rem;
+}
+
+.produit-info .description {
+  flex: 1;
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.produit-info .prix-stock {
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+.btn-ajouter {
+  background-color: #43a047;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.btn-ajouter:hover {
+  background-color: #388e3c;
+}
+
+/* ---------------- Panier ---------------- */
+.panier-container {
+  background-color: #f9f9f9;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+}
+
+.panier-item {
+  display: flex;
+  gap: 15px;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
   align-items: center;
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 12px;
-  padding: 12px 15px;
-  background-color: #fff;
-  border-radius: 12px;
-  transition: all 0.3s;
 }
 
-.panier-container:hover {
-  transform: translateY(-2px);
-  background-color: #e9ecef;
-}
-
-.panier-container img {
-  width: 85px;
-  height: 85px;
+.panier-item img {
+  width: 70px;
+  height: 70px;
   object-fit: cover;
-  margin-right: 15px;
-  border-radius: 12px;
+  border-radius: 8px;
 }
 
 .panier-info h3 {
-  margin: 0;
-  color: #007bff;
-  font-size: 1rem;
+  margin: 0 0 5px 0;
 }
 
 .panier-info p {
-  margin: 3px 0;
-  font-size: 0.95rem;
+  margin: 2px 0;
+  font-size: 0.85rem;
 }
 
-.panier-info button {
-  margin-top: 4px;
-  padding: 6px 14px;
+.btn-retirer {
+  background-color: #e53935;
   border: none;
-  background-color: #dc3545;
-  color: white;
+  border-radius: 6px;
+  color: #fff;
+  padding: 5px 8px;
   cursor: pointer;
-  border-radius: 10px;
-  transition: all 0.3s;
 }
 
-.panier-info button:hover {
-  transform: translateY(-1px) scale(1.05);
-  background-color: #c82333;
+.btn-retirer:hover {
+  background-color: #c62828;
 }
 
-/* --- Panier Total --- */
+/* ---------------- Total et actions ---------------- */
 .panier-total {
-  margin-top: 12px;
-  text-align: right;
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
 }
 
-.panier-total p {
-  font-size: 1.15rem;
-  font-weight: 600;
-}
-
-.panier-total button {
-  margin-top: 6px;
-  padding: 10px 20px;
+.btn-vider, .btn-commander {
+  background-color: #43a047;
+  color: #fff;
   border: none;
-  background: linear-gradient(135deg, #ffc107, #e0a800);
-  color: #212529;
+  border-radius: 8px;
+  padding: 8px 12px;
   cursor: pointer;
-  border-radius: 12px;
-  font-weight: 600;
-  transition: all 0.3s;
+  font-weight: bold;
+  margin-left: 10px;
+  transition: background 0.2s;
 }
 
-.panier-total button:hover {
-  transform: translateY(-1px) scale(1.03);
-  box-shadow: 0 6px 18px rgba(255,193,7,0.3);
+.btn-vider:hover, .btn-commander:hover {
+  background-color: #388e3c;
 }
 
-/* --- Alert & Logout --- */
-.alert {
-  background-color: #d1ecf1;
-  color: #0c5460;
-  padding: 12px;
-  border-radius: 12px;
-  margin-bottom: 15px;
-  font-weight: 500;
+/* ---------------- Formulaire commande ---------------- */
+.commande-form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
+.commande-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+}
+
+.commande-form input, 
+.commande-form select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-top: 5px;
+}
+
+.commande-form button {
+  align-self: flex-start;
+}
+
+/* ---------------- Panier vide ---------------- */
+.panier-vide {
+  text-align: center;
+  font-size: 1rem;
+  color: #888;
+  margin: 20px 0;
+}
+
+/* ---------------- Bouton déconnexion ---------------- */
 .logout-btn {
-  margin-top: 25px;
-  padding: 12px 30px;
+  margin-top: 30px;
+  background-color: #f57c00;
+  color: #fff;
   border: none;
-  background: linear-gradient(135deg, #007bff, #0069d9);
-  color: white;
+  border-radius: 8px;
+  padding: 10px 15px;
   cursor: pointer;
-  border-radius: 12px;
-  font-weight: 600;
-  transition: all 0.3s;
 }
 
 .logout-btn:hover {
-  transform: translateY(-1px) scale(1.02);
-  box-shadow: 0 6px 20px rgba(0,123,255,0.4);
+  background-color: #ef6c00;
 }
 
-/* --- Responsive --- */
-@media (max-width: 1200px) {
-  .produits-grid { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
-}
+/* ---------------- Responsive ---------------- */
+@media (max-width: 768px) {
+  .produits-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
 
-@media (max-width: 900px) {
-  .produits-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
-  .image-container { height: 160px; }
-  .produit-info .description { height: 35px; }
-}
+  .panier-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-@media (max-width: 600px) {
-  .produits-grid { grid-template-columns: 1fr; gap: 20px; }
-  .image-container { height: 150px; }
-  .produit-info h3 { font-size: 1.1rem; }
-  .produit-info button { padding: 8px 16px; font-size: 0.9rem; }
-  .panier-container { flex-direction: column; align-items: flex-start; }
-  .panier-container img { margin-bottom: 8px; }
-  .panier-total { text-align: left; }
+  .panier-info {
+    margin-top: 5px;
+  }
 }

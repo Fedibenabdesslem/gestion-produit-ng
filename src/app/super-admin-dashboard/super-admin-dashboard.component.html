@@ -44,5 +44,47 @@
         [animations]="true">
       </ngx-charts-bar-vertical>
     </section>
+
+    <!-- 📑 Gestion des commandes -->
+    <section class="stats-section">
+      <h3>📑 Liste des commandes</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Utilisateur</th>
+            <th>Date</th>
+            <th>Statut</th>
+            <th>Total</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cmd of commandes">
+            <td>{{ cmd.id }}</td>
+            <td>{{ cmd.username }}</td>
+            <td>{{ cmd.dateCreation | date:'short' }}</td>
+            <td>
+              <span 
+                class="status-badge" 
+                [ngClass]="{
+                  'pending': cmd.statut === 'EnAttente',
+                  'processing': cmd.statut === 'EnCours',
+                  'delivered': cmd.statut === 'Livree',
+                  'cancelled': cmd.statut === 'Annulee'
+                }">
+                {{ cmd.statut }}
+              </span>
+            </td>
+            <td>{{ cmd.total | currency:'TND' }}</td>
+            <td>
+              <button (click)="changerStatut(cmd.id, 'EnCours')">🚚 En cours</button>
+              <button (click)="changerStatut(cmd.id, 'Livree')">✅ Livrée</button>
+              <button (click)="annulerCommande(cmd.id)" class="cancel-btn">❌ Annuler</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
   </main>
 </div>

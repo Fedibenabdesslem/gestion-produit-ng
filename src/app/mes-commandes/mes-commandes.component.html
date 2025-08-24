@@ -1,0 +1,21 @@
+<!-- mes-commandes.component.html -->
+<div class="commandes">
+  <h2>Mes commandes</h2>
+
+  <div *ngFor="let commande of commandes" class="commande-card">
+    <p><strong>ID:</strong> {{commande.id}}</p>
+    <p><strong>Date:</strong> {{commande.dateCreation | date:'short'}}</p>
+    <p><strong>Statut:</strong> {{commande.statut}}</p>
+
+    <h4>Produits :</h4>
+    <ul>
+      <li *ngFor="let item of commande.items">
+        {{item.nomProduit}} (x{{item.quantite}}) - {{item.prixUnitaire}} DT
+      </li>
+    </ul>
+
+    <button (click)="annulerCommande(commande.id)" *ngIf="commande.statut === 'En attente'">
+      Annuler
+    </button>
+  </div>
+</div>
