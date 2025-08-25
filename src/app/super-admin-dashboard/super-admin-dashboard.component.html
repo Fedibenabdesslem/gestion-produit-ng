@@ -10,15 +10,15 @@
     </nav>
   </aside>
 
-  <!-- CONTENU PRINCIPAL -->
+  <!-- CONTENU -->
   <main class="main-content">
     <h1>Bienvenue sur votre tableau de bord</h1>
 
-    <!-- Statistiques Utilisateurs -->
+    <!-- Utilisateurs par rôle -->
     <section class="stats-section">
-      <h3>📊 Répartition des rôles</h3>
+      <h3>📊 Répartition des rôles utilisateurs</h3>
       <ngx-charts-pie-chart
-        [view]="[500, 500]"
+        [view]="[500, 400]"
         [scheme]="colorScheme"
         [results]="userRoleCounts"
         [legend]="true"
@@ -27,9 +27,9 @@
       </ngx-charts-pie-chart>
     </section>
 
-    <!-- Statistiques Produits -->
+    <!-- Produits par stock -->
     <section class="stats-section">
-      <h3>📦 Quantité par produit</h3>
+      <h3>📦 Stock par produit</h3>
       <ngx-charts-bar-vertical
         [view]="[600, 400]"
         [scheme]="colorScheme"
@@ -40,51 +40,98 @@
         [showXAxisLabel]="true"
         [showYAxisLabel]="true"
         [xAxisLabel]="'Produit'"
-        [yAxisLabel]="'Quantité'"
-        [animations]="true">
+        [yAxisLabel]="'Stock'">
       </ngx-charts-bar-vertical>
     </section>
 
-    <!-- 📑 Gestion des commandes -->
+    <!-- Commandes par statut -->
     <section class="stats-section">
-      <h3>📑 Liste des commandes</h3>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Utilisateur</th>
-            <th>Date</th>
-            <th>Statut</th>
-            <th>Total</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let cmd of commandes">
-            <td>{{ cmd.id }}</td>
-            <td>{{ cmd.username }}</td>
-            <td>{{ cmd.dateCreation | date:'short' }}</td>
-            <td>
-              <span 
-                class="status-badge" 
-                [ngClass]="{
-                  'pending': cmd.statut === 'EnAttente',
-                  'processing': cmd.statut === 'EnCours',
-                  'delivered': cmd.statut === 'Livree',
-                  'cancelled': cmd.statut === 'Annulee'
-                }">
-                {{ cmd.statut }}
-              </span>
-            </td>
-            <td>{{ cmd.total | currency:'TND' }}</td>
-            <td>
-              <button (click)="changerStatut(cmd.id, 'EnCours')">🚚 En cours</button>
-              <button (click)="changerStatut(cmd.id, 'Livree')">✅ Livrée</button>
-              <button (click)="annulerCommande(cmd.id)" class="cancel-btn">❌ Annuler</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <h3>📑 Commandes par statut</h3>
+      <ngx-charts-pie-chart
+        [view]="[500, 400]"
+        [scheme]="colorScheme"
+        [results]="commandeStatusCounts"
+        [legend]="true"
+        [labels]="true"
+        [doughnut]="true">
+      </ngx-charts-pie-chart>
     </section>
+
+    <!-- Liste des commandes avec coordonnées utilisateur -->
+    <!-- Section Liste des commandes -->
+<section class="stats-section">
+  <h3>📑 Liste des commandes</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Utilisateur</th>
+        <th>Téléphone</th>
+        <th>Adresse</th>
+        <th>Date</th>
+        <th>Statut</th>
+        <th>Total</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cmd of commandes">
+        <td>{{ cmd.id }}</td>
+        <td>{{ cmd.username }}</td>
+        <td>{{ cmd.numeroTelephone }}</td>
+        <td>{{ cmd.adresseLivraison }}</td>
+        <td>{{ cmd.dateCreation | date:'short' }}</td>
+        <td>
+          <span 
+            class="status-badge" 
+            [ngClass]="{
+              'pending': cmd.statut === 'EnAttente',
+              'processing': cmd.statut === 'EnCours',
+              'delivered': cmd.statut === 'Livree',
+              'cancelled': cmd.statut === 'Annulee'
+            }">
+            {{ cmd.statut }}
+          </span>
+        </td>
+        <td>{{ cmd.total | currency:'TND' }}</td>
+        <td>
+          <button (click)="changerStatut(cmd.id, 'EnCours')">🚚 En cours</button>
+          <button (click)="changerStatut(cmd.id, 'Livree')">✅ Livrée</button>
+          <button (click)="annulerCommande(cmd.id)" class="cancel-btn">❌ Annuler</button>
+          <button (click)="voirDetails(cmd)" class="details-btn">👁️ Voir détails</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- Modal / Vitrine commande -->
+<div class="modal-overlay" *ngIf="selectedCommande">
+  <div class="modal-card">
+    <button class="modal-close" (click)="selectedCommande = undefined">✖</button>
+    <h3>Commande #{{ selectedCommande.id }}</h3>
+    <p><strong>Client :</strong> {{ selectedCommande.username }}</p>
+    <p><strong>Téléphone :</strong> {{ selectedCommande.numeroTelephone }}</p>
+    <p><strong>Adresse :</strong> {{ selectedCommande.adresseLivraison }}</p>
+    <p><strong>Statut :</strong> {{ selectedCommande.statut }}</p>
+    
+    <h4>Produits :</h4>
+    <div class="commande-items">
+      <div *ngFor="let item of selectedCommande.items" class="commande-item-card">
+        <img [src]="'https://localhost:7241' + item.imageUrl" alt="{{ item.produitNom }}">
+        <div class="item-info">
+          <p><strong>{{ item.produitNom }}</strong></p>
+          <p>Prix unitaire : {{ item.prixUnitaire | currency:'TND' }}</p>
+          <p>Quantité : {{ item.quantite }}</p>
+          <p>Sous-total : {{ item.sousTotal | currency:'TND' }}</p>
+        </div>
+      </div>
+    </div>
+
+    <h4>Total : {{ selectedCommande.total | currency:'TND' }}</h4>
+  </div>
+</div>
+
+
   </main>
 </div>

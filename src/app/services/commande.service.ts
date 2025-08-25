@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Commande {
+numeroTelephone: any;
   id: number;
   userId: string;
   username: string;
@@ -33,9 +34,9 @@ export class CommandeService {
   constructor(private http: HttpClient) {}
 
   // Passer commande depuis le panier (nouvelle route)
-  creerDepuisPanier(): Observable<Commande> {
-    return this.http.post<Commande>(`${this.apiUrl}/from-panier`, {});
-  }
+  creerDepuisPanier(dto: { adresseLivraison: string; numeroTelephone: string; modePaiement: string; }): Observable<Commande> {
+  return this.http.post<Commande>(`${this.apiUrl}/from-panier`, dto);
+}
 
   getMesCommandes(): Observable<Commande[]> {
     return this.http.get<Commande[]>(`${this.apiUrl}/mes`);
@@ -46,8 +47,8 @@ export class CommandeService {
   }
 
   changerStatut(id: number, statut: string): Observable<any> {
-    return this.http.patch(`${this.apiUrl}/${id}/statut?value=${statut}`, {});
-  }
+  return this.http.patch(`${this.apiUrl}/${id}/statut?value=${statut}`, {});
+}
 
   getAllCommandes(): Observable<Commande[]> {
     return this.http.get<Commande[]>(`${this.apiUrl}/all`);

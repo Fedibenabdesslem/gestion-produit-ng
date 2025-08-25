@@ -24,6 +24,7 @@ export class UserDashboardComponent implements OnInit {
   adresseLivraison: string = '';
   modePaiement: string = 'en ligne';
 message: any;
+numeroTelephone: any;
 
   constructor(
     private produitService: ProduitService,
@@ -83,16 +84,26 @@ message: any;
   }
 
   // ----------------- PASSER LA COMMANDE -----------------
-  passerCommande(): void {
+  // ----------------- USER DASHBOARD COMPONENT -----------------
+passerCommande(): void {
   if (this.panierItems.length === 0) {
     alert("Le panier est vide !");
     return;
   }
 
-  this.commandeService.creerDepuisPanier().subscribe({
+  const commandeDto = {
+    adresseLivraison: this.adresseLivraison,
+    numeroTelephone: this.numeroTelephone,
+    modePaiement: this.modePaiement
+  };
+
+  this.commandeService.creerDepuisPanier(commandeDto).subscribe({
     next: (commande) => {
       alert(`Commande passée avec succès ! ID: ${commande.id}`);
       this.viderPanier();
+      this.adresseLivraison = '';
+      this.numeroTelephone = '';
+      this.modePaiement = 'en ligne';
     },
     error: (err) => {
       console.error('Erreur lors de la commande', err);
@@ -100,5 +111,6 @@ message: any;
     }
   });
 }
+
 
 }
