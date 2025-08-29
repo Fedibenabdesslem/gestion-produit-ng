@@ -16,6 +16,7 @@ numeroTelephone: any;
 }
 
 export interface CommandeItem {
+prix: string|number;
 nomProduit: any;
   produitId: number;
   produitNom: string;

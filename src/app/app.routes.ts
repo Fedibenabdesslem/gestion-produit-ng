@@ -10,6 +10,7 @@ import { SuperAdminDashboardComponent } from './super-admin-dashboard/super-admi
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { RegisterComponent } from './register/register.component';
+import { MesCommandesComponent } from './mes-commandes/mes-commandes.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,6 +23,7 @@ export const routes: Routes = [
   { path: 'super-admin', component: SuperAdminDashboardComponent, canActivate: [AdminGuard] },
   {path : 'user-dashboard', component: UserDashboardComponent},
   {path : 'register', component: RegisterComponent},
+  {path : 'mes-commandes', component: MesCommandesComponent},
 
    { path: '**', redirectTo: '' }
   

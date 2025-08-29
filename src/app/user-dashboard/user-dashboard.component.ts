@@ -4,27 +4,27 @@ import { PanierItem } from '../models/panier-item.model';
 import { ProduitService } from '../services/produit.service';
 import { PanierService } from '../services/panier.service';
 import { AuthService } from '../services/auth.service';
-
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CommandeService } from '../services/commande.service';
+import { CommandeService, Commande } from '../services/commande.service';
 
 @Component({
   selector: 'app-user-dashboard',
   templateUrl: './user-dashboard.component.html',
   styleUrls: ['./user-dashboard.component.css'],
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,RouterLink],
 })
 export class UserDashboardComponent implements OnInit {
   produits: Produit[] = [];
   produitsFiltres: Produit[] = [];
   panierItems: PanierItem[] = [];
+  commandes: Commande[] = []; // 👈 pour stocker les commandes
 
   adresseLivraison: string = '';
   modePaiement: string = 'en ligne';
-message: any;
-numeroTelephone: any;
+  numeroTelephone: string = '';
+  message: string = '';
 
   constructor(
     private produitService: ProduitService,
@@ -37,6 +37,7 @@ numeroTelephone: any;
   ngOnInit(): void {
     this.chargerProduits();
     this.chargerPanier();
+    this.chargerCommandes(); // 👈 charger les commandes au démarrage
   }
 
   chargerProduits(): void {
@@ -49,6 +50,13 @@ numeroTelephone: any;
   chargerPanier(): void {
     this.panierService.getPanier().subscribe({
       next: data => this.panierItems = data,
+      error: err => console.error(err)
+    });
+  }
+
+  chargerCommandes(): void {
+    this.commandeService.getMesCommandes().subscribe({
+      next: data => this.commandes = data,
       error: err => console.error(err)
     });
   }
@@ -83,34 +91,40 @@ numeroTelephone: any;
     this.router.navigate(['/login']);
   }
 
-  // ----------------- PASSER LA COMMANDE -----------------
-  // ----------------- USER DASHBOARD COMPONENT -----------------
-passerCommande(): void {
-  if (this.panierItems.length === 0) {
-    alert("Le panier est vide !");
-    return;
+  passerCommande(): void {
+    if (this.panierItems.length === 0) {
+      alert("Le panier est vide !");
+      return;
+    }
+
+    const commandeDto = {
+      adresseLivraison: this.adresseLivraison,
+      numeroTelephone: this.numeroTelephone,
+      modePaiement: this.modePaiement
+    };
+
+    this.commandeService.creerDepuisPanier(commandeDto).subscribe({
+      next: (commande) => {
+        alert(`Commande passée avec succès ! ID: ${commande.id}`);
+        this.viderPanier();
+        this.chargerCommandes(); // 👈 recharger la liste des commandes
+        this.adresseLivraison = '';
+        this.numeroTelephone = '';
+        this.modePaiement = 'en ligne';
+      },
+      error: (err) => {
+        console.error('Erreur lors de la commande', err);
+        alert(err?.error?.message || 'Impossible de passer la commande.');
+      }
+    });
   }
 
-  const commandeDto = {
-    adresseLivraison: this.adresseLivraison,
-    numeroTelephone: this.numeroTelephone,
-    modePaiement: this.modePaiement
-  };
-
-  this.commandeService.creerDepuisPanier(commandeDto).subscribe({
-    next: (commande) => {
-      alert(`Commande passée avec succès ! ID: ${commande.id}`);
-      this.viderPanier();
-      this.adresseLivraison = '';
-      this.numeroTelephone = '';
-      this.modePaiement = 'en ligne';
-    },
-    error: (err) => {
-      console.error('Erreur lors de la commande', err);
-      alert(err?.error?.message || 'Impossible de passer la commande.');
+  annulerCommande(id: number) {
+    if (confirm("Voulez-vous vraiment annuler cette commande ?")) {
+      this.commandeService.annuler(id).subscribe({
+        next: () => this.chargerCommandes(),
+        error: (err) => console.error(err)
+      });
     }
-  });
-}
-
-
+  }
 }

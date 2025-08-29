@@ -15,14 +15,21 @@
         <h3>{{ produit.nom }}</h3>
         <p class="description">{{ produit.description }}</p>
         <p class="prix-stock"><strong>Prix :</strong> {{ produit.prix }} DT</p>
-        <p class="prix-stock"><strong>Stock :</strong> {{ produit.stock }}</p>
+       
         <button class="btn-ajouter" (click)="ajouterAuPanier(produit.id)">🛒 Ajouter</button>
       </div>
     </div>
   </div>
+<!-- bouton redirection -->
+  <div class="dashboard-actions">
+    <button routerLink="/mes-commandes" class="btn-suivi">
+      📦 Suivre mes commandes
+    </button>
+  </div>
 
   <!-- ---------------- Mon Panier ---------------- -->
   <h2 class="section-title">🛒 Mon Panier</h2>
+  
 
   <div class="panier-container" *ngIf="panierItems.length; else panierVide">
     <div class="panier-item" *ngFor="let item of panierItems">
@@ -37,6 +44,7 @@
         </div>
       </ng-container>
     </div>
+    
 
     <div class="panier-total">
       <p><strong>Total :</strong> {{ getTotal() }} DT</p>
@@ -77,3 +85,4 @@
   <button class="logout-btn" (click)="logout()">🚪 Déconnexion</button>
 
 </div>
+
