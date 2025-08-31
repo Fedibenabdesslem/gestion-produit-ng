@@ -14,25 +14,26 @@
         </div>
       </div>
 
-      <!-- Timeline animée -->
+      <!-- Timeline progressive -->
       <div class="timeline">
-        <div class="step" [class.active]="['EnCours','Validée','Expédiée','Livrée'].includes(cmd.statut)">
-          <div class="circle">📝</div>
-          <div class="label">En cours</div>
+        <div 
+          *ngFor="let step of steps" 
+          class="step" 
+          [class.active]="getActiveSteps(cmd.statut).includes(step)">
+          
+          <div class="circle">
+            <ng-container [ngSwitch]="step">
+              <span *ngSwitchCase="'EnCours'">📝</span>
+              <span *ngSwitchCase="'Validée'">✅</span>
+              <span *ngSwitchCase="'Expédiée'">📦</span>
+              <span *ngSwitchCase="'Livrée'">🚚</span>
+            </ng-container>
+          </div>
+          <div class="label">{{ step }}</div>
         </div>
-        <div class="step" [class.active]="['Validée','Expédiée','Livrée'].includes(cmd.statut)">
-          <div class="circle">✅</div>
-          <div class="label">Validée</div>
-        </div>
-        <div class="step" [class.active]="['Expédiée','Livrée'].includes(cmd.statut)">
-          <div class="circle">📦</div>
-          <div class="label">Expédiée</div>
-        </div>
-        <div class="step" [class.active]="cmd.statut === 'Livrée'">
-          <div class="circle">🚚</div>
-          <div class="label">Livrée</div>
-        </div>
-        <div class="step cancelled" *ngIf="cmd.statut === 'Annulée'">
+
+        <!-- Cas spécial annulée -->
+        <div class="step cancelled" *ngIf="cmd.statut === 'Annulee'">
           <div class="circle">❌</div>
           <div class="label">Annulée</div>
         </div>

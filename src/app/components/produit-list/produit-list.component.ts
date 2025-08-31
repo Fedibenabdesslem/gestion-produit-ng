@@ -50,4 +50,8 @@ export class ProduitListComponent implements OnInit {
     this.router.navigate(['/modifier-produit', id]);
     console.log(`Modifier le produit avec l'ID: ${id}`);
   }
+
+  revenirDashboard() {
+    this.router.navigate(['/super-admin']); // ou '/admin-dashboard' selon ta route
+  }
 }

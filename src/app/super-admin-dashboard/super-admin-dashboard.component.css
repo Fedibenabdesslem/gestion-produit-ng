@@ -202,3 +202,18 @@ button:hover {
   flex-direction: column;
   justify-content: space-between;
 }
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.pending { background: #ffbb33; }     /* En attente */
+.processing { background: #007bff; } /* En cours */
+.delivered { background: #00c851; }  /* Livrée */
+.cancelled { background: #ff4444; }  /* Annulée */
+.expired { background: #aa66cc; }    /* Expirée */
+.finished { background: #2e2e2e; }  /* Terminée */

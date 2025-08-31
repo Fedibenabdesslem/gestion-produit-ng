@@ -164,3 +164,14 @@ h2 {
   color: #777;
   padding: 40px 0;
 }
+
+
+.step .circle {
+  color: gray; /* icône grise par défaut */
+}
+
+.step.active .circle {
+  color: green; /* devient vert seulement si actif */
+}
+
+

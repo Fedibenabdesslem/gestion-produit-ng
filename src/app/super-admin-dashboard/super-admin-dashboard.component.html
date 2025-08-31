@@ -85,19 +85,24 @@
           <span 
             class="status-badge" 
             [ngClass]="{
-              'pending': cmd.statut === 'EnAttente',
-              'processing': cmd.statut === 'EnCours',
-              'delivered': cmd.statut === 'Livree',
-              'cancelled': cmd.statut === 'Annulee'
-            }">
-            {{ cmd.statut }}
-          </span>
+            'pending': cmd.statut === 'EnAttente',
+            'processing': cmd.statut === 'EnCours',
+            'delivered': cmd.statut === 'Livree',
+            'cancelled': cmd.statut === 'Annulee',
+            'expired': cmd.statut === 'Expédiée',
+            'finished': cmd.statut === 'Terminee'
+         }">
+          {{ cmd.statut }}
+        </span>
+
         </td>
         <td>{{ cmd.total | currency:'TND' }}</td>
         <td>
           <button (click)="changerStatut(cmd.id, 'EnCours')">🚚 En cours</button>
           <button (click)="changerStatut(cmd.id, 'Livree')">✅ Livrée</button>
           <button (click)="annulerCommande(cmd.id)" class="cancel-btn">❌ Annuler</button>
+          <button (click)="changerStatut(cmd.id,'Expédiée')" class="ship-btn">📦 Expédiée</button>
+          <button (click)="changerStatut(cmd.id,'Terminee')" class="finish-btn">🏁 Terminée</button>
           <button (click)="voirDetails(cmd)" class="details-btn">👁️ Voir détails</button>
         </td>
       </tr>
